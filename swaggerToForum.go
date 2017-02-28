@@ -55,14 +55,13 @@ func CreateParametersDocument(projectName string, parameters string, opId string
 
   glog.V(2).Info("parameters json is: " + parametersJson)
 
-  //escapedParameters := strings.Replace(parametersJson, "\"", "\\\"", -1)
+  if parametersJson != "" {
+    jsonString := "{\"name\":\"" + projectName + "_document_policy_parameters_" + opId + "\",\"document\":["  + parametersJson + "]}"
 
-  jsonString := "{\"name\":\"" + projectName + "_document_policy_parameters_" + opId + "\",\"document\":["  + parametersJson + "]}"
-  //jsonString := "{\"name\":\"" + projectName + "_document_policy_parameters_" + opId + "\",\"document\":[\""  + escapedParameters + "\"]}"
+    glog.V(1).Info("jsonString of parameter doc before post is: " + jsonString)
 
-  glog.V(1).Info("jsonString of parameter doc before post is: " + jsonString)
-
-  callRest("policies/documents", "POST", jsonString, config)
+    callRest("policies/documents", "POST", jsonString, config)
+  }
 }
 
 func CreateDefinitionDocument(projectName string, definition Definition, opId string) {

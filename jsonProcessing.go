@@ -48,14 +48,6 @@ func (ver *VerbStruct) MarshalJSON() ([]byte, error) {
   jsonBytes = append(jsonBytes, []byte("\"tags\":")...)
   jsonBytes = append(jsonBytes, tags...)
   jsonBytes = append(jsonBytes, comma...)
-  //jsonBytes = append(jsonBytes, []byte("\"tags\":[")...)
-  //tagString := ""
-  //for i := range ver.Tags {
-  //  tagString = "\"" + ver.Tags[i] + "\","
-  //}
-  //tagString = strings.TrimSuffix(tagString, ",")
-  //jsonBytes = append(jsonBytes, []byte(tagString)...)
-  //jsonBytes = append(jsonBytes, []byte("],")...)
 
   //Summary
   summary, err := json.Marshal(ver.Summary)
@@ -448,7 +440,7 @@ func getContextAndVerb(operationID string, tag string) (context string, verb str
     case strings.HasPrefix(operationID, "post"):
       context = strings.TrimPrefix(operationID, "post")
       verb = "post"
-    case strings.HasPrefix(context, "upload"):
+    case strings.HasPrefix(operationID, "upload"):
       context = strings.TrimPrefix(operationID, "upload")
       verb = "post"
     case strings.HasPrefix(operationID, "update"):
