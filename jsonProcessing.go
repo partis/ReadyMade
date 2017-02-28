@@ -38,9 +38,15 @@ func (ver *VerbStruct) MarshalJSON() ([]byte, error) {
   var jsonBytes []byte
   comma := []byte(",")
 
-  //jsonBytes = append(jsonBytes, []byte("{")...)
+  jsonBytes = append(jsonBytes, []byte("{")...)
   
   //Tags
+  tags, err := json.Marshal(ver.Tags)
+  if err != nil {
+    glog.Error(err)
+  }
+  jsonBytes = append(jsonBytes, tags...)
+  jsonBytes = append(jsonBytes, comma...)
   //jsonBytes = append(jsonBytes, []byte("\"tags\":[")...)
   //tagString := ""
   //for i := range ver.Tags {
@@ -51,21 +57,64 @@ func (ver *VerbStruct) MarshalJSON() ([]byte, error) {
   //jsonBytes = append(jsonBytes, []byte("],")...)
 
   //Summary
-  //summary, err := json.Marshal(ver.Summary)
-  //jsonBytes = append(jsonBytes, summary)
+  summary, err := json.Marshal(ver.Summary)
+  if err != nil {
+    glog.Error(err)
+  }
+  jsonBytes = append(jsonBytes, summary...)
+  jsonBytes = append(jsonBytes, comma...)
 
   //Description
+  description, err := json.Marshal(ver.Description)
+  if err != nil {
+    glog.Error(err)
+  }
+  jsonBytes = append(jsonBytes, description...)
+  jsonBytes = append(jsonBytes, comma...)
 
   //OperationID
+  operationId, err := json.Marshal(ver.OperationID)
+  if err != nil {
+    glog.Error(err)
+  }
+  jsonBytes = append(jsonBytes, operationId...)
+  jsonBytes = append(jsonBytes, comma...)
 
   //Consumes
+  consumes, err := json.Marshal(ver.Consumes)
+  if err != nil {
+    glog.Error(err)
+  }
+  jsonBytes = append(jsonBytes, consumes...)
+  jsonBytes = append(jsonBytes, comma...)
 
   //Produces
+  produces, err := json.Marshal(ver.Produces)
+  if err != nil {
+    glog.Error(err)
+  }
+  jsonBytes = append(jsonBytes, produces...)
+  jsonBytes = append(jsonBytes, comma...)
 
   //Connection
+  connection, err := json.Marshal(ver.Connection)
+  if err != nil {
+    glog.Error(err)
+  }
+  jsonBytes = append(jsonBytes, connection...)
+  jsonBytes = append(jsonBytes, comma...)
 
   //Parameters
-  
+  jsonBytes = append(jsonBytes, []byte("\"parameters\":[")...)
+  parameters, err := json.Marshal(ver.Parameters)
+  if err != nil {
+    glog.Error(err)
+  }
+  parameters = []byte(removeQuotes(string(parameters)))
+  jsonBytes = append(jsonBytes, parameters...)
+
+  jsonBytes = append(jsonBytes, []byte("]")...)
+   
 
   jsonBytes = append(jsonBytes, []byte("}")...)
   glog.V(2).Info("json bytes after all paths: %s", string(jsonBytes))
