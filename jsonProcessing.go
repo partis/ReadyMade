@@ -118,6 +118,7 @@ func (ver *VerbStruct) MarshalJSON() ([]byte, error) {
     glog.Error(err)
   }
   parameters = bytes.Replace(parameters, []byte("\\\""), []byte("\""), -1)
+  parameters = []byte(removeQuotes(string(parameters)))
   jsonBytes = append(jsonBytes, parameters...)
 
   jsonBytes = append(jsonBytes, []byte("]")...)
