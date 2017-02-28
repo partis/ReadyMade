@@ -50,9 +50,15 @@ func SwaggerToForum(swagger SwaggerTemplate, conf Config) {
 }
 
 func CreateParametersDocument(projectName string, parameters string, opId string) {
-  escapedParameters := strings.Replace(toJson(parameters), "\"", "\\\"", -1)
 
-  jsonString := "{\"name\":\"" + projectName + "_document_policy_parameters_" + opId + "\",\"document\":[\""  + escapedParameters + "\"]}"
+  parametersJson := toJson(parameters)
+
+  glog.V(2).Info("parameters json is: " + parametersJson)
+
+  //escapedParameters := strings.Replace(parametersJson, "\"", "\\\"", -1)
+
+  jsonString := "{\"name\":\"" + projectName + "_document_policy_parameters_" + opId + "\",\"document\":["  + parametersJson + "]}"
+  //jsonString := "{\"name\":\"" + projectName + "_document_policy_parameters_" + opId + "\",\"document\":[\""  + escapedParameters + "\"]}"
 
   glog.V(1).Info("jsonString of parameter doc before post is: " + jsonString)
 
@@ -63,6 +69,8 @@ func CreateDefinitionDocument(projectName string, definition Definition, opId st
   escapedDefinition := strings.Replace(definition.Properties, "\"", "\\\"", -1)
 
   jsonString := "{\"name\":\"" + projectName + "_document_policy_definition_" + opId + "\",\"document\":[\""  + escapedDefinition + "\"]}"
+
+  glog.V(1).Info("jsonString of definitions doc before post is: " + jsonString)
 
   callRest("policies/documents", "POST", jsonString, config)
 }
