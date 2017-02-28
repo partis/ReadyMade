@@ -45,6 +45,7 @@ func (ver *VerbStruct) MarshalJSON() ([]byte, error) {
   if err != nil {
     glog.Error(err)
   }
+  jsonBytes = append(jsonBytes, []byte("\"tags\":")...)
   jsonBytes = append(jsonBytes, tags...)
   jsonBytes = append(jsonBytes, comma...)
   //jsonBytes = append(jsonBytes, []byte("\"tags\":[")...)
@@ -61,6 +62,7 @@ func (ver *VerbStruct) MarshalJSON() ([]byte, error) {
   if err != nil {
     glog.Error(err)
   }
+  jsonBytes = append(jsonBytes, []byte("\"summary\":")...)
   jsonBytes = append(jsonBytes, summary...)
   jsonBytes = append(jsonBytes, comma...)
 
@@ -69,6 +71,7 @@ func (ver *VerbStruct) MarshalJSON() ([]byte, error) {
   if err != nil {
     glog.Error(err)
   }
+  jsonBytes = append(jsonBytes, []byte("\"description\":")...)
   jsonBytes = append(jsonBytes, description...)
   jsonBytes = append(jsonBytes, comma...)
 
@@ -77,6 +80,7 @@ func (ver *VerbStruct) MarshalJSON() ([]byte, error) {
   if err != nil {
     glog.Error(err)
   }
+  jsonBytes = append(jsonBytes, []byte("\"operationId\":")...)
   jsonBytes = append(jsonBytes, operationId...)
   jsonBytes = append(jsonBytes, comma...)
 
@@ -85,6 +89,7 @@ func (ver *VerbStruct) MarshalJSON() ([]byte, error) {
   if err != nil {
     glog.Error(err)
   }
+  jsonBytes = append(jsonBytes, []byte("\"consumes\":")...)
   jsonBytes = append(jsonBytes, consumes...)
   jsonBytes = append(jsonBytes, comma...)
 
@@ -93,6 +98,7 @@ func (ver *VerbStruct) MarshalJSON() ([]byte, error) {
   if err != nil {
     glog.Error(err)
   }
+  jsonBytes = append(jsonBytes, []byte("\"produces\":")...)
   jsonBytes = append(jsonBytes, produces...)
   jsonBytes = append(jsonBytes, comma...)
 
@@ -101,6 +107,7 @@ func (ver *VerbStruct) MarshalJSON() ([]byte, error) {
   if err != nil {
     glog.Error(err)
   }
+  jsonBytes = append(jsonBytes, []byte("\"connection\":")...)
   jsonBytes = append(jsonBytes, connection...)
   jsonBytes = append(jsonBytes, comma...)
 
@@ -117,7 +124,7 @@ func (ver *VerbStruct) MarshalJSON() ([]byte, error) {
    
 
   jsonBytes = append(jsonBytes, []byte("}")...)
-  glog.V(2).Info("json bytes after all paths: %s", string(jsonBytes))
+  glog.V(2).Info("json bytes for verb struct: %s", string(jsonBytes))
   return jsonBytes, nil
 }
 
