@@ -459,7 +459,13 @@ func getContextAndVerb(operationID string, tag string) (context string, verb str
     glog.V(1).Info("Verb is : " + verb)
     glog.V(1).Info("Tag is : " + tag)
 
-    context = strings.Replace(context, strings.Title(tag), "", 1)
+    //add support for plural tag
+    contextSplit := strings.Split(context, strings.Title(tag))
+    if strings.HasPrefix(contextSplit[1], "s") {
+      context = strings.Replace(context, strings.Title(tag) + "s", "", 1)
+    } else {
+      context = strings.Replace(context, strings.Title(tag), "", 1)
+    }
     context = strings.Replace(context, " ", "_", -1)
     glog.V(1).Info("Context is : " + context)
     if context != "" {
