@@ -452,6 +452,9 @@ func getContextAndVerb(operationID string, tag string) (context string, verb str
     case strings.HasPrefix(operationID, "find"):
       context = operationID
       verb = "get"
+    case strings.HasPrefix(operationID, "delete"):
+      context = strings.TrimPrefix(operationID, "delete")
+      verb = "delete"
     default:
       context = operationID
       verb = "get"
