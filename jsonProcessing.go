@@ -461,7 +461,7 @@ func getContextAndVerb(operationID string, tag string) (context string, verb str
 
     //add support for plural tag
     contextSplit := strings.Split(context, strings.Title(tag))
-    if strings.HasPrefix(contextSplit[1], "s") {
+    if strings.Contains(context, strings.Title(tag)) && strings.HasPrefix(contextSplit[1], "s") {
       context = strings.Replace(context, strings.Title(tag) + "s", "", 1)
     } else {
       context = strings.Replace(context, strings.Title(tag), "", 1)
